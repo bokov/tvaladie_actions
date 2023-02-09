@@ -8,26 +8,39 @@
 #
 
 library(shiny)
+library(plotly)
+library(shinyBS)
+library(colourpicker)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
 
     # Application title
-    titlePanel("Old Faithful Geyser Data"),
+    titlePanel("Bexar County COVID cases"),
 
     # Sidebar with a slider input for number of bins
     sidebarLayout(
         sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
+            selectInput("yvals",
+                        "Plot Values",
+                        choices = names(data1)[-(1:3)],
+                        selected = names(data1)[4],
+                        multiple = TRUE
+                        ),
+            colourInput("color_1",
+                      defaultpalette[1]
+            ),
+            selectInput("ycols",
+                        "Plot Colors",
+                        choices = defaultpalette,
+                        selected = defaultpalette[1],
+                        multiple = TRUE
+            )
         ),
 
         # Show a plot of the generated distribution
         mainPanel(
-            plotOutput("distPlot")
+            plotlyOutput("distPlot")
         )
     )
 ))
