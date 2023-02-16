@@ -11,13 +11,23 @@ library(shiny)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
+  output$decol <- renderUI({
+    yvals <- input$yvals
+    ylabels <- paste0('ycol_',yvals)
+    selectInput("ycols4",
+                    " Colors",
+                    choices = defaultpalette,
+                    selected = defaultpalette[1],
+                    multiple = TRUE)})
 
     output$distPlot <- renderPlotly({
-      #browser();
+
       yvals<-input$yvals;
-      ycols<-c(input$color_1,defaultpalette)[seq_along(yvals)];
+      ycols<-names(input) %>% grep('^ycol',.,val=TRUE) %>%
+        sapply(function(ii){input[[ii]]});
+      if(length(yvals) == 3) browser();
       ggplotly(ggplot(data1,aes(x=reporting_date))+
-                 mapply(makegeomline,input$yvals,input$ycols)) %>%
+                 mapply(makegeomline,yvals,ycols)) %>%
         layout(dragmode = 'select') %>%
         event_register('plotly_click')
     })
@@ -25,5 +35,23 @@ shinyServer(function(input, output) {
 })
 
 
-#Can add some text and elements to the UI and see what it all does
-#Can try and insert additional objects and things
+#renderUI for matching number of variables to colors
+
+#ChatGPT output
+#defaultpalette <- c("red", "green", "blue")
+#selected <- defaultpalette[1]
+
+#uiOutput("ycols3_ui")
+
+#server <- function(input, output, session) {
+  #output$ycols3_ui <- renderUI({
+    #selectInput("ycols3",
+#                "Plot Colors",
+#                choices = defaultpalette,
+#                selected = selected,
+#                multiple = TRUE
+#    )
+#  })
+#}
+
+#shinyApp(ui, server)

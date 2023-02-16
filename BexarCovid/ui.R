@@ -30,12 +30,25 @@ shinyUI(fluidPage(
             colourInput("color_1",
                       defaultpalette[1]
             ),
-            selectInput("ycols",
+            selectInput("ycols1",
+                        "Plot Colors",
+                        choices = defaultpalette,
+                        selected = defaultpalette[1],
+                        multiple = TRUE
+            ),
+            selectInput("ycols2",
+                        "Plot Colors",
+                        choices = defaultpalette,
+                        selected = defaultpalette[1],
+                        multiple = TRUE
+            ),
+            selectInput("ycols3",
                         "Plot Colors",
                         choices = defaultpalette,
                         selected = defaultpalette[1],
                         multiple = TRUE
             )
+    uiOutput('decol')
         ),
 
         # Show a plot of the generated distribution
@@ -44,3 +57,5 @@ shinyUI(fluidPage(
         )
     )
 ))
+
+#outputUI to match renderUI and select number of colors to match number of variables
