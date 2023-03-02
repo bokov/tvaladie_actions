@@ -2,6 +2,8 @@ library(jsonlite);
 library(rio);
 library(dplyr);
 library(ggplot2);
+library(bslib);
+library(thematic);
 
 makegeomline<-function(yy,ycol){
   #browser()

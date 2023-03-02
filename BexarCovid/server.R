@@ -20,6 +20,19 @@ shinyServer(function(input, output) {
       simplify=FALSE)
     })
 
+  output$DT1 <- DT::renderDataTable(
+    datatable(data1,
+              options = list(scrollX = TRUE,
+                             scrollY = "400px",
+                             scrollCollapse = TRUE,
+                             paging = FALSE,
+                             dom = 'Bfrtip',
+                             buttons = c('copy', 'csv', 'excel', 'pdf', 'print', 'colvis')
+              ),
+              selection = 'multiple',
+              extensions = 'Buttons',
+              filter = 'top'))
+
     output$distPlot <- renderPlotly({
 
       yvals<-input$yvals;

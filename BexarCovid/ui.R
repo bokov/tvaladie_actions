@@ -15,6 +15,10 @@ library(colourpicker)
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
 
+    # Theme
+    theme = bs_theme(primary = "#000000", secondary = "#F54913",
+                     font_scale = NULL, bootswatch = "flatly"),
+
     # Application title
     titlePanel("Bexar County COVID cases"),
 
@@ -33,7 +37,7 @@ shinyUI(fluidPage(
         # Show a plot of the generated distribution
         mainPanel(
             plotlyOutput("distPlot"),
-            DT::dataTableOutput(outputId = 'DT1')
+            DT::dataTableOutput(outputId = 'DT1', width = '90%')
         )
     )
 ))
