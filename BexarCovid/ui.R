@@ -16,8 +16,8 @@ library(colourpicker)
 shinyUI(fluidPage(
 
     # Theme
-    theme = bs_theme(primary = "#000000", secondary = "#F54913",
-                     font_scale = NULL, bootswatch = "flatly"),
+    theme = bs_theme(fg = "rgb(3, 73, 70)", font_scale = NULL,
+                     bootswatch = "flatly", bg = "rgb(255, 255, 255)"),
 
     # Application title
     titlePanel("Bexar County COVID cases"),
