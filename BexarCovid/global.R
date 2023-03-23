@@ -6,9 +6,14 @@ library(bslib);
 library(thematic);
 library(DT);
 
+makegeompoint <- function(yy){
+  #browser()
+  geom_line(aes_string(y=yy),alpha = 0)
+}
+
 makegeomline<-function(yy,ycol){
   #browser()
-  geom_point(aes_string(y=yy),col=ycol)
+  geom_line(aes_string(y=yy),col=ycol)
 }
 
 if(!file.exists('cached_data.tsv')){"nonexists"
