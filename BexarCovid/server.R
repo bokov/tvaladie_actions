@@ -13,7 +13,6 @@ library(DT)
 shinyServer(function(input, output) {
   output$decol <- renderUI({
     yvals <- input$yvals
-    ylabels <- paste0('ycol_',yvals)
     sapply(yvals,function(ii){
       colourInput(paste0('ycol_',ii),paste0(ii,' color'),
                   value = '#000000',allowTransparent = TRUE)},
@@ -41,13 +40,12 @@ shinyServer(function(input, output) {
     output$distPlot <- renderPlotly({
 
       yvals <- input$yvals
-      #browser()
       ycols <- names(input) %>% grep('^ycol_',.,val=TRUE) %>%
        sapply(function(ii){input[[ii]]});
       #browser()
       ggplotly(ggplot(data1,aes(x=reporting_date))+
-                 mapply(makegeomline,yvals,ycols)+
-                 mapply(makegeompoint,yvals))%>%
+                 mapply(makegeompoint,yvals)+
+                 mapply(makegeomline,yvals,ycols)) %>%
         layout(dragmode = 'select') %>%
         event_register('plotly_selected')
     })
