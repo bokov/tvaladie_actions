@@ -1,0 +1,10 @@
+library(shiny)
+library(ggplot2)
+library(DT)
+library(plotly)
+library(dplyr)
+
+white_data_list <- c('datasets','dplyr','ggplot2','plotly')
+data_list <- data()$results %>% as.data.frame() %>% subset(Package %in% white_data_list)
+data_choices <- 1:nrow(data_list) %>% setNames(data_list[,'Item'])
+data_catch <- new.env()

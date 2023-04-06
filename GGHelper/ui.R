@@ -1,6 +1,4 @@
 library(shiny)
-data_list <- data()$results
-data_choices <- 1:nrow(data_list) %>% setNames(data_list[,'Item'])
 
 ui <- fluidPage(
   sidebarLayout(
@@ -11,8 +9,8 @@ ui <- fluidPage(
     ),
     mainPanel(
       h3("Column Selection"),
-      DT::DTOutput("table")
-
+      DT::DTOutput("table"),
+      plotOutput('myplot')
     )
   )
 )
