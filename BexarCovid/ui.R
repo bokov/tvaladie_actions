@@ -23,23 +23,34 @@ shinyUI(fluidPage(
     titlePanel("Bexar County COVID cases"),
 
     # Sidebar with a slider input for number of bins
-    sidebarLayout(
-        sidebarPanel(
-            selectInput("yvals",
-                        "Plot Values",
-                        choices = names(data1)[-(1:3)],
-                        selected = names(data1)[4],
-                        multiple = TRUE
-                        ),
-            uiOutput('decol')
-        ),
+    tabsetPanel(
+      tabPanel('plotly',
+               sidebarLayout(
+                 sidebarPanel(
+                   selectInput("yvals",
+                               "Plot Values",
+                               choices = names(data1)[-(1:3)],
+                               selected = names(data1)[4],
+                               multiple = TRUE
+                   ),
+                   uiOutput('decol')
+                 ),
 
-        # Show a plot of the generated distribution
-        mainPanel(
-            plotlyOutput("distPlot"),
-            DT::dataTableOutput(outputId = 'DT1', width = '90%')
-        )
-    )
+                 # Show a plot of the generated distribution
+                 mainPanel(
+                   plotlyOutput("distPlot"),
+                   DT::dataTableOutput(outputId = 'DT1', width = '90%')
+                 ))),
+
+               tabPanel('3d',
+                sidebarLayout(
+                  sidebarPanel(
+
+                  ),
+                  mainPanel(
+                    "Hello there"
+                  )))
+                        )
 ))
 
 #outputUI to match renderUI and select number of colors to match number of variables

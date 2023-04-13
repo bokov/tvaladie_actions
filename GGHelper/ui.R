@@ -9,8 +9,9 @@ ui <- fluidPage(
     ),
     mainPanel(
       h3("Column Selection"),
-      DT::DTOutput("table"),
-      plotOutput('myplot')
+      plotOutput('myplot'),
+      textOutput('GGPlotCode'),
+      DT::DTOutput("table")
     )
   )
 )
