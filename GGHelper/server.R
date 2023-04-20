@@ -23,22 +23,30 @@ server <- function(input, output) {
   })
 
   output$table <- DT::renderDT({
-    req(!is.null(dataset()),all(c(input$x_var, input$y_var) %in% names(dataset())))
-    data <- dataset()
-    DT::datatable(data[, c(input$x_var, input$y_var)])
+    req(data <- dataset(), x_var <- input$x_var, y_var <- input$y_var, !all(c(x_var,y_var) %in% data))
+    # req(!is.null(dataset()),all(c(input$x_var, input$y_var) %in% names(dataset())))
+    DT::datatable(data[, c(x_var,y_var)])
   })
 
   plotcode <- reactive({
-    req(data <- ChosenData()$Item, x_var <- input$x_var, y_var <- input$y_var)
-    code <- sprintf('ggplot(%s,aes(x=%s,y=%s))'
-                    ,data, x_var, y_var);
-    geoms <- 'geom_point()';
+    req(data <- ChosenData()$Item, x_var <- input$x_var, y_var <- input$y_var,
+        color_var <- input$color_var, geoms <- input$geoms)
+    code <- sprintf('ggplot(%s,aes(x=%s,y=%s,col=%s))'
+                    ,data, x_var, y_var, color_var);
     paste(code,'+',geoms);
   });
 
   ChosenData <- reactive({
     data_list[as.integer(input$dataset),]
   })
+
+  output$plot_color <- renderUI({
+    if (is.null(dataset())) return()
+    selectInput("color_var", "Plot_color", choices = names(dataset()))
+  })
+
+  observe({req(input$debug); if(input$debug>0) browser()
+    })
 
   output$GGPlotCode <- renderText({req(code<-plotcode()); code})
 
@@ -54,3 +62,6 @@ server <- function(input, output) {
 #Later Analyze what geometry has been chosen and automatically override selections that
 #won't function within the specific visualization
 #Also put in process such that when you push changes to Git it automatically updates Shiny App
+
+# 4/20 class - for next week, add size as one of the dimensions (hopefully will break geom line or
+# it will ignore it)
