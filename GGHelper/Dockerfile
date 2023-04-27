@@ -1,6 +1,6 @@
 # Could also use specific version number, e.g.
-# FROM rocker/shiny:4.2.3
-FROM rocker/shiny:latest
+FROM rocker/shiny:4.2.3
+# FROM rocker/shiny:latest
 # Space-delimited list of all the libraries your app will need
 RUN install2.r rsconnect dplyr ggplot2 DT plotly
 WORKDIR /home/shinyusr
