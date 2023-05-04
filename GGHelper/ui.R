@@ -5,12 +5,12 @@ ui <- fluidPage(
     sidebarPanel(
       #How to create a button that is dependent on some condition
       if (file.exists('debug')) actionButton('debug','debug') else '',
-      selectInput("dataset", "Select a dataset", choices = data_choices),
+      selectInput("dataset", "Select a dataset", choices = data_choices, selected=data_choices['mtcars']),
       uiOutput("column_selection_x"),
       uiOutput("column_selection_y"),
       #uiOutput("plot_selection"),
       uiOutput("plot_color"),
-      selectInput("geoms", "Select plot", choices = c('geom_point()','geom_line()'))
+      selectInput("geoms", "Select plot", choices = c('geom_point()','geom_line()','geom_path()','geom_step()'))
     ),
     mainPanel(
       h3("Column Selection"),
